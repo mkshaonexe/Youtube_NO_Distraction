@@ -112,66 +112,9 @@ body.motivation-mode-enabled .motivation-author {
     font-style: italic;
 }
 
-body {
-    width: 80px; /* Even further reduced width */
-    padding: 1px; /* Even further reduced padding */
-    font-family: 'Segoe UI', Roboto, Arial, sans-serif; /* Modern font stack */
-    background-color: #f0f2f5; /* Light background */
-    color: #333; /* Darker text */
-    margin: 0;
-    font-size: 0.6em; /* Even further reduced font size */
-}
+/* Removed global body styles that were interfering with YouTube's display */
 
-.feature-toggle {
-    background-color: #fff; /* White background for each feature */
-    border-radius: 8px; /* Rounded corners */
-    padding: 3px; /* Further reduced padding inside each feature block */
-    margin-bottom: 2px; /* Further reduced space between feature blocks */
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-}
+/* Popup-specific styles should be in popup.html or a separate popup.css file */
+/* These styles were interfering with YouTube's display and have been removed */ 
 
-.feature-toggle label {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-weight: normal; /* Normal weight for modern look */
-    font-size: 0.9em; /* Slightly reduced font size for labels */
-} 
-
-.lock-icon {
-    margin-left: 6px;
-}
-
-/* Premium notice styles inside popup */
-.premium-notice {
-    position: fixed;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(0,0,0,0.6);
-    z-index: 10000;
-}
-.premium-notice > div,
-.premium-notice .premium-notice-title,
-.premium-notice .premium-notice-text {
-    color: #111;
-}
-.premium-notice .premium-notice-title {
-    font-weight: 600;
-    margin-bottom: 6px;
-}
-.premium-notice .premium-notice-text {
-    margin-bottom: 12px;
-}
-.premium-notice .btn {
-    padding: 6px 10px;
-    border: none;
-    border-radius: 6px;
-    background: #065fd4;
-    color: #fff;
-    cursor: pointer;
-}
-.premium-notice > div {
-    background: #fff;
-}
+/* All popup-specific styles have been moved to popup.html inline styles */

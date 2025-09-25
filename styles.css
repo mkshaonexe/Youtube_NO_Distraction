@@ -1,0 +1,177 @@
+/* Hide shorts section */
+ytd-rich-section-renderer,
+ytd-reel-shelf-renderer {
+    display: none !important;
+}
+
+/* Hide shorts in search results */
+ytd-video-renderer[is-shorts] {
+    display: none !important;
+}
+
+/* Hide recommendations sidebar */
+ytd-watch-next-secondary-results-renderer {
+    display: none !important;
+}
+
+/* Hide shorts button in navigation */
+ytd-mini-guide-entry-renderer[aria-label*="Shorts"] {
+    display: none !important;
+}
+
+/* Styles active when .no-shorts-no-reels-enabled class is on body/html */
+body.no-shorts-no-reels-enabled ytd-rich-section-renderer, /* Hide Shorts shelf on homepage */
+body.no-shorts-no-reels-enabled ytd-reel-shelf-renderer, /* Hide Shorts shelf (another possible selector) */
+body.no-shorts-no-reels-enabled ytd-video-renderer[is-shorts], /* Hide individual Shorts in feeds/search */
+body.no-shorts-no-reels-enabled ytd-grid-video-renderer[is-shorts], /* Hide individual Shorts in grid views */
+body.no-shorts-no-reels-enabled ytd-thumbnail[is-shorts], /* Hide Shorts thumbnails */
+body.no-shorts-no-reels-enabled a[href*="/shorts/"] /* Hide links to Shorts */
+{
+    display: none !important;
+}
+
+/* Stronger selectors for Shorts on search results and feeds */
+body.no-shorts-no-reels-enabled ytd-video-renderer:has(a[href*="/shorts/"]),
+body.no-shorts-no-reels-enabled ytd-grid-video-renderer:has(a[href*="/shorts/"]),
+body.no-shorts-no-reels-enabled ytd-compact-video-renderer:has(a[href*="/shorts/"]),
+body.no-shorts-no-reels-enabled ytd-rich-item-renderer:has(a[href*="/shorts/"]),
+body.no-shorts-no-reels-enabled ytd-shelf-renderer:has(a[href*="/shorts/"]),
+body.no-shorts-no-reels-enabled ytd-rich-section-renderer:has(a[href*="/shorts/"]),
+body.no-shorts-no-reels-enabled ytd-item-section-renderer:has(ytd-reel-shelf-renderer)
+{
+    display: none !important;
+}
+
+/* Hide known recommendation sections and sidebars */
+/* Avoid hiding whole item sections; target only specific shelf components */
+body.no-shorts-no-reels-enabled #related, /* Hide "Up Next" and related videos sidebar */
+body.no-shorts-no-reels-enabled ytd-watch-next-secondary-results-renderer, /* Hide recommendations on watch page */
+body.no-shorts-no-reels-enabled ytd-feed-filter-chip-bar-renderer, /* Hide the filter chips like "All", "Recents", etc. (Optional, but helps clean up) */
+body.no-shorts-no-reels-enabled ytd-compact-video-renderer, /* Hide compact recommendations in sidebars */
+body.no-shorts-no-reels-enabled ytd-guide-entry-renderer[line-icon="shorts"] /* Hide Shorts link in sidebar */
+{
+    display: none !important;
+}
+
+/* Adjust main content area to take up more space if sidebar is hidden (optional) */
+body.no-shorts-no-reels-enabled #primary {
+    margin-right: 0 !important;
+}
+
+/* Optionally hide the Shorts button in the sidebar */
+body.no-shorts-no-reels-enabled ytd-guide-entry-renderer[line-icon="shorts"] {
+     display: none !important;
+}
+
+/* More specific selectors for elements often containing shorts */
+/* Hide only the Shorts shelf itself, not the entire section */
+body.no-shorts-no-reels-enabled ytd-reel-shelf-renderer { display: none !important; }
+body.no-shorts-no-reels-enabled ytd-reel-shelf-surface-renderer { display: none !important; }
+
+/* Hide community post shelves on search/home */
+body.no-shorts-no-reels-enabled ytd-shelf-renderer:has(ytd-post-renderer),
+body.no-shorts-no-reels-enabled ytd-shelf-renderer:has(ytd-backstage-post-thread-renderer),
+body.no-shorts-no-reels-enabled ytd-backstage-post-thread-renderer,
+body.no-shorts-no-reels-enabled ytd-post-renderer {
+    display: none !important;
+}
+
+/* Styles active when .hide-feed-enabled class is on body/html - Hide the main feed */
+body.hide-feed-enabled #primary #contents {
+    display: none !important;
+}
+
+/* Styles active when .motivation-mode-enabled class is on body/html */
+body.motivation-mode-enabled {
+    background-color: #000 !important;
+}
+
+body.motivation-mode-enabled #primary #contents {
+    display: none !important; /* Hide the feed when motivation mode is on */
+}
+
+body.motivation-mode-enabled .motivation-quote-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #fff;
+    font-size: 2.5em; /* Increased font size for the quote container */
+    text-align: center;
+    padding: 30px; /* Increased padding */
+    z-index: 9999; /* Ensure it's on top */
+}
+
+body.motivation-mode-enabled .motivation-quote {
+    margin-bottom: 15px; /* Increased margin */
+    font-size: 2em; /* Further increased font size for the quote text */
+}
+
+body.motivation-mode-enabled .motivation-author {
+    font-size: 0.7em; /* Slightly increased font size for author */
+    font-style: italic;
+}
+
+body {
+    width: 80px; /* Even further reduced width */
+    padding: 1px; /* Even further reduced padding */
+    font-family: 'Segoe UI', Roboto, Arial, sans-serif; /* Modern font stack */
+    background-color: #f0f2f5; /* Light background */
+    color: #333; /* Darker text */
+    margin: 0;
+    font-size: 0.6em; /* Even further reduced font size */
+}
+
+.feature-toggle {
+    background-color: #fff; /* White background for each feature */
+    border-radius: 8px; /* Rounded corners */
+    padding: 3px; /* Further reduced padding inside each feature block */
+    margin-bottom: 2px; /* Further reduced space between feature blocks */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+.feature-toggle label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: normal; /* Normal weight for modern look */
+    font-size: 0.9em; /* Slightly reduced font size for labels */
+} 
+
+.lock-icon {
+    margin-left: 6px;
+}
+
+/* Premium notice styles inside popup */
+.premium-notice {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,0.6);
+    z-index: 10000;
+}
+.premium-notice > div,
+.premium-notice .premium-notice-title,
+.premium-notice .premium-notice-text {
+    color: #111;
+}
+.premium-notice .premium-notice-title {
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+.premium-notice .premium-notice-text {
+    margin-bottom: 12px;
+}
+.premium-notice .btn {
+    padding: 6px 10px;
+    border: none;
+    border-radius: 6px;
+    background: #065fd4;
+    color: #fff;
+    cursor: pointer;
+}
+.premium-notice > div {
+    background: #fff;
+}

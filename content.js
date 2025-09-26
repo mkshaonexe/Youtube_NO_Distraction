@@ -13,6 +13,15 @@ function toggleExtensionCssClass(enabled) {
     }
 }
 
+// Function to apply/remove CSS class on the body for hiding shorts specifically
+function toggleShortsCssClass(hideShorts) {
+    if (hideShorts) {
+        document.body.classList.add('hide-shorts-enabled');
+    } else {
+        document.body.classList.remove('hide-shorts-enabled');
+    }
+}
+
 // Function to apply/remove CSS class on the body for hiding comments (Premium placeholder)
 function toggleCommentsCssClass(hideComments) {
     // This function is now just a placeholder for the premium feature
@@ -142,8 +151,9 @@ function removeMotivationQuote() {
 
 // Fallback redirect for shorts URLs if background script didn't catch it
 async function fallbackShortsRedirect() {
-    const enabled = await isExtensionEnabled();
-    if (enabled && window.location.pathname.includes('/shorts/')) {
+    const result = await chrome.storage.local.get('hideShorts');
+    const hideShorts = result.hideShorts !== false; // Default to true
+    if (hideShorts && window.location.pathname.includes('/shorts/')) {
         window.location.href = 'https://www.youtube.com/';
     }
 }
@@ -154,15 +164,17 @@ fallbackShortsRedirect();
 // Initial run on page load (for applying CSS classes based on stored state)
 async function initializeExtension() {
     console.log('[Hide Feed] Initializing extension.');
-    const result = await chrome.storage.local.get(['enabled', 'hideComments', 'hideFeed', 'motivationEnabled', 'blockAds']); // Added 'blockAds'
+    const result = await chrome.storage.local.get(['enabled', 'hideComments', 'hideFeed', 'motivationEnabled', 'blockAds', 'hideShorts']); // Added 'hideShorts'
     const enabled = result.enabled !== false; // Default to true
     const hideComments = result.hideComments === true; // Default to false
     const hideFeed = result.hideFeed === true; // Default to false
     const motivationEnabled = result.motivationEnabled === true; // Default to false
     const blockAds = result.blockAds === true; // Default to false
+    const hideShorts = result.hideShorts !== false; // Default to true (hide shorts by default)
 
     toggleExtensionCssClass(enabled);
     toggleCommentsCssClass(hideComments);
+    toggleShortsCssClass(hideShorts); // Apply shorts hiding class
     // toggleHideFeedCssClass(hideFeed); // Don't apply here, apply conditionally below
     toggleBlockAdsCssClass(blockAds); // Apply block ads class
 
@@ -191,6 +203,9 @@ chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
     console.log(`[Hide Feed] Message received: ${request.action}`);
     if (request.action === 'toggleExtension') {
         toggleExtensionCssClass(request.enabled);
+    } else if (request.action === 'toggleShorts') {
+        // Handle Hide Shorts toggle
+        toggleShortsCssClass(request.hideShorts);
     } else if (request.action === 'toggleComments') {
         // Handle Hide Comments toggle
         toggleCommentsCssClass(request.hideComments);
@@ -259,8 +274,9 @@ function removeShortsFromDom(root = document) {
 
 // When on search results, aggressively prune Shorts and shelves
 async function handleSearchPage() {
-    const enabled = await isExtensionEnabled();
-    if (!enabled) return;
+    const result = await chrome.storage.local.get('hideShorts');
+    const hideShorts = result.hideShorts !== false; // Default to true
+    if (!hideShorts) return;
     if (!location.pathname.startsWith('/results')) return;
     removeShortsFromDom();
 }
@@ -278,9 +294,10 @@ const observer = new MutationObserver(async (mutations) => {
         console.log(`[MutationObserver] URL changed to: ${location.href}`);
 
         // Re-apply all initial settings on URL change
-        const result = await chrome.storage.local.get(['enabled', 'hideComments', 'hideFeed', 'motivationEnabled', 'blockAds']); // Added 'blockAds'
+        const result = await chrome.storage.local.get(['enabled', 'hideComments', 'hideFeed', 'motivationEnabled', 'blockAds', 'hideShorts']); // Added 'hideShorts'
         toggleExtensionCssClass(result.enabled !== false);
         toggleCommentsCssClass(result.hideComments === true);
+        toggleShortsCssClass(result.hideShorts !== false); // Re-apply shorts hiding class
         // toggleHideFeedCssClass(result.hideFeed === true); // Don't apply here, apply conditionally below
         toggleBlockAdsCssClass(result.blockAds === true); // Re-apply block ads class
 
@@ -320,8 +337,9 @@ observer.observe(document.body, {
 
 // Observe incremental content loads to catch dynamically injected Shorts
 const incrementalObserver = new MutationObserver(async (mutations) => {
-    const enabled = await isExtensionEnabled();
-    if (!enabled) return;
+    const result = await chrome.storage.local.get('hideShorts');
+    const hideShorts = result.hideShorts !== false; // Default to true
+    if (!hideShorts) return;
     // Only process on search and feeds
     if (location.pathname.startsWith('/results') || location.pathname === '/' || location.pathname.startsWith('/feed/')) {
         for (const mutation of mutations) {

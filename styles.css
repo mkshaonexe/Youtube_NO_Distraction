@@ -1,37 +1,33 @@
 /* Global rules removed - these should only apply when extension is enabled */
 /* All hiding rules are now moved to the .no-shorts-no-reels-enabled section below */
 
-/* Styles active when .no-shorts-no-reels-enabled class is on body/html */
-body.no-shorts-no-reels-enabled ytd-rich-section-renderer, /* Hide Shorts shelf on homepage */
-body.no-shorts-no-reels-enabled ytd-reel-shelf-renderer, /* Hide Shorts shelf (another possible selector) */
-body.no-shorts-no-reels-enabled ytd-video-renderer[is-shorts], /* Hide individual Shorts in feeds/search */
-body.no-shorts-no-reels-enabled ytd-grid-video-renderer[is-shorts], /* Hide individual Shorts in grid views */
-body.no-shorts-no-reels-enabled ytd-thumbnail[is-shorts], /* Hide Shorts thumbnails */
-body.no-shorts-no-reels-enabled a[href*="/shorts/"], /* Hide links to Shorts */
+/* Styles active when .hide-shorts-enabled class is on body/html - Hide Shorts specifically */
+body.hide-shorts-enabled ytd-rich-section-renderer, /* Hide Shorts shelf on homepage */
+body.hide-shorts-enabled ytd-reel-shelf-renderer, /* Hide Shorts shelf (another possible selector) */
+body.hide-shorts-enabled ytd-video-renderer[is-shorts], /* Hide individual Shorts in feeds/search */
+body.hide-shorts-enabled ytd-grid-video-renderer[is-shorts], /* Hide individual Shorts in grid views */
+body.hide-shorts-enabled ytd-thumbnail[is-shorts], /* Hide Shorts thumbnails */
+body.hide-shorts-enabled a[href*="/shorts/"], /* Hide links to Shorts */
+body.hide-shorts-enabled ytd-mini-guide-entry-renderer[aria-label*="Shorts"], /* Hide shorts button in navigation */
+body.hide-shorts-enabled ytd-video-renderer:has(a[href*="/shorts/"]),
+body.hide-shorts-enabled ytd-grid-video-renderer:has(a[href*="/shorts/"]),
+body.hide-shorts-enabled ytd-compact-video-renderer:has(a[href*="/shorts/"]),
+body.hide-shorts-enabled ytd-rich-item-renderer:has(a[href*="/shorts/"]),
+body.hide-shorts-enabled ytd-shelf-renderer:has(a[href*="/shorts/"]),
+body.hide-shorts-enabled ytd-rich-section-renderer:has(a[href*="/shorts/"]),
+body.hide-shorts-enabled ytd-item-section-renderer:has(ytd-reel-shelf-renderer),
+body.hide-shorts-enabled ytd-reel-shelf-renderer,
+body.hide-shorts-enabled ytd-reel-shelf-surface-renderer,
+body.hide-shorts-enabled ytd-guide-entry-renderer[line-icon="shorts"]
+{
+    display: none !important;
+}
+
+/* Styles active when .no-shorts-no-reels-enabled class is on body/html - Hide ALL recommendations */
 body.no-shorts-no-reels-enabled ytd-watch-next-secondary-results-renderer, /* Hide recommendations sidebar */
-body.no-shorts-no-reels-enabled ytd-mini-guide-entry-renderer[aria-label*="Shorts"] /* Hide shorts button in navigation */
-{
-    display: none !important;
-}
-
-/* Stronger selectors for Shorts on search results and feeds */
-body.no-shorts-no-reels-enabled ytd-video-renderer:has(a[href*="/shorts/"]),
-body.no-shorts-no-reels-enabled ytd-grid-video-renderer:has(a[href*="/shorts/"]),
-body.no-shorts-no-reels-enabled ytd-compact-video-renderer:has(a[href*="/shorts/"]),
-body.no-shorts-no-reels-enabled ytd-rich-item-renderer:has(a[href*="/shorts/"]),
-body.no-shorts-no-reels-enabled ytd-shelf-renderer:has(a[href*="/shorts/"]),
-body.no-shorts-no-reels-enabled ytd-rich-section-renderer:has(a[href*="/shorts/"]),
-body.no-shorts-no-reels-enabled ytd-item-section-renderer:has(ytd-reel-shelf-renderer)
-{
-    display: none !important;
-}
-
-/* Hide known recommendation sections and sidebars */
-/* Avoid hiding whole item sections; target only specific shelf components */
 body.no-shorts-no-reels-enabled #related, /* Hide "Up Next" and related videos sidebar */
-body.no-shorts-no-reels-enabled ytd-feed-filter-chip-bar-renderer, /* Hide the filter chips like "All", "Recents", etc. (Optional, but helps clean up) */
-body.no-shorts-no-reels-enabled ytd-compact-video-renderer, /* Hide compact recommendations in sidebars */
-body.no-shorts-no-reels-enabled ytd-guide-entry-renderer[line-icon="shorts"] /* Hide Shorts link in sidebar */
+body.no-shorts-no-reels-enabled ytd-feed-filter-chip-bar-renderer, /* Hide the filter chips like "All", "Recents", etc. */
+body.no-shorts-no-reels-enabled ytd-compact-video-renderer /* Hide compact recommendations in sidebars */
 {
     display: none !important;
 }
@@ -41,15 +37,7 @@ body.no-shorts-no-reels-enabled #primary {
     margin-right: 0 !important;
 }
 
-/* Optionally hide the Shorts button in the sidebar */
-body.no-shorts-no-reels-enabled ytd-guide-entry-renderer[line-icon="shorts"] {
-     display: none !important;
-}
-
-/* More specific selectors for elements often containing shorts */
-/* Hide only the Shorts shelf itself, not the entire section */
-body.no-shorts-no-reels-enabled ytd-reel-shelf-renderer { display: none !important; }
-body.no-shorts-no-reels-enabled ytd-reel-shelf-surface-renderer { display: none !important; }
+/* Shorts-related rules moved to .hide-shorts-enabled section above */
 
 /* Hide community post shelves on search/home */
 body.no-shorts-no-reels-enabled ytd-shelf-renderer:has(ytd-post-renderer),

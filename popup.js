@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     const toggleExtension = document.getElementById('toggleExtension');
+    const toggleShorts = document.getElementById('toggleShorts'); // Get reference to the Shorts toggle
     const toggleHideFeed = document.getElementById('toggleHideFeed'); // Get reference to the new toggle
     const toggleMotivation = document.getElementById('toggleMotivation'); // Get reference to the Motivation Mode toggle
     const toggleComments = document.getElementById('toggleComments'); // Get reference to the Hide Comments toggle
@@ -10,10 +11,13 @@ document.addEventListener('DOMContentLoaded', function() {
     // All features are now available to all users
 
     // Load initial states
-    chrome.storage.local.get(['enabled', 'hideComments', 'blockAds', 'hideFeed', 'motivationEnabled'], function(result) { // Added 'motivationEnabled'
+    chrome.storage.local.get(['enabled', 'hideComments', 'blockAds', 'hideFeed', 'motivationEnabled', 'hideShorts'], function(result) { // Added 'hideShorts'
         // Extension toggle state
         toggleExtension.checked = result.enabled !== false; // Default to true
         updateStatus(toggleExtension.checked);
+
+        // Shorts toggle state
+        toggleShorts.checked = result.hideShorts !== false; // Default to true (hide shorts by default)
 
         // Hide Feed toggle state
         toggleHideFeed.checked = result.hideFeed === true; // Default to false
@@ -39,6 +43,19 @@ document.addEventListener('DOMContentLoaded', function() {
             chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
                 if (tabs && tabs[0]) {
                     chrome.tabs.sendMessage(tabs[0].id, { action: 'toggleExtension', enabled: enabled });
+                }
+            });
+        });
+    });
+
+    // Handle Shorts toggle changes
+    toggleShorts.addEventListener('change', function() {
+        const hideShorts = toggleShorts.checked;
+        chrome.storage.local.set({ hideShorts: hideShorts }, function() {
+            // Notify content script
+            chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+                if (tabs && tabs[0]) {
+                    chrome.tabs.sendMessage(tabs[0].id, { action: 'toggleShorts', hideShorts: hideShorts });
                 }
             });
         });

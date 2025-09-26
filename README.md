@@ -1,7 +1,7 @@
 # 🎯 YouTube No Distraction - Focus & Productivity Chrome Extension
 
 [![Chrome Extension](https://img.shields.io/badge/Chrome-Extension-4285F4?style=for-the-badge&logo=googlechrome&logoColor=white)](https://github.com/mkshaonexe/youtube-no-distraction)
-[![Version](https://img.shields.io/badge/Version-2.6-success?style=for-the-badge)](https://github.com/mkshaonexe/youtube-no-distraction)
+[![Version](https://img.shields.io/badge/Version-2.7-success?style=for-the-badge)](https://github.com/mkshaonexe/youtube-no-distraction)
 [![License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)](LICENSE)
 [![Stars](https://img.shields.io/github/stars/mkshaonexe/youtube-no-distraction?style=for-the-badge)](https://github.com/mkshaonexe/youtube-no-distraction/stargazers)
 
@@ -295,8 +295,16 @@ chrome.storage.local.get(['enabled', 'hideFeed', 'motivationEnabled'],
 
 ## 📊 Version History & Changelog
 
-### **🆕 Version 2.6 (Current)**
+### **🆕 Version 2.7 (Current)**
 **Release Date**: Latest
+**Major Bug Fixes**:
+- 🐛 **Fixed**: Critical bug where recommendations appeared when toggling shorts even when recommendations were disabled
+- 🔧 **Improved**: CSS rule consolidation to prevent conflicts between shorts and recommendations toggles
+- ⚡ **Enhanced**: Better isolation between different feature toggles for more predictable behavior
+- 📱 **Optimized**: Recommendation hiding rules now work consistently across all toggle states
+
+### **Version 2.6**
+**Release Date**: Previous
 **Major Improvements**:
 - 🐛 **Fixed**: Channel page display issues with yellow text overlays
 - 🎨 **Improved**: CSS styling to prevent interference with YouTube's design
@@ -388,15 +396,20 @@ chrome.storage.local.get(['enabled', 'hideFeed', 'motivationEnabled'],
 
 ### **Resolved Issues** ✅
 
-1. **Channel Page Display** (v2.6)
+1. **Toggle State Conflicts** (v2.7) 
+   - **Problem**: Recommendations appeared when toggling shorts even when recommendations were disabled
+   - **Root Cause**: CSS rules for recommendations were scattered and conflicting with shorts toggle logic
+   - **Solution**: Consolidated all recommendation-hiding CSS rules into a single block to prevent conflicts
+
+2. **Channel Page Display** (v2.6)
    - **Problem**: Yellow text overlays on channel pages
    - **Solution**: Removed conflicting CSS styles
 
-2. **CSS Conflicts** (v2.6)
+3. **CSS Conflicts** (v2.6)
    - **Problem**: Extension styles interfering with YouTube's interface
    - **Solution**: More specific CSS selectors and better scoping
 
-3. **Navigation Issues** (v2.5)
+4. **Navigation Issues** (v2.5)
    - **Problem**: Features not working after page navigation
    - **Solution**: Enhanced mutation observers and URL change detection
 

@@ -118,3 +118,27 @@ body.motivation-mode-enabled .motivation-author {
 /* These styles were interfering with YouTube's display and have been removed */ 
 
 /* All popup-specific styles have been moved to popup.html inline styles */
+
+/* Styles active when .hide-comments-enabled class is on body/html - Hide comments section */
+body.hide-comments-enabled #comments,
+body.hide-comments-enabled ytd-comments,
+body.hide-comments-enabled ytd-comments-header-renderer,
+body.hide-comments-enabled #comments-inner,
+body.hide-comments-enabled ytd-comment-thread-renderer,
+body.hide-comments-enabled ytd-comments-section-renderer {
+    display: none !important;
+}
+
+/* Styles active when .block-ads-enabled class is on body/html - Block ads */
+body.block-ads-enabled ytd-display-ad-renderer,
+body.block-ads-enabled ytd-promoted-sparkles-web-renderer,
+body.block-ads-enabled ytd-ad-slot-renderer,
+body.block-ads-enabled .ytd-display-ad-renderer,
+body.block-ads-enabled .ytd-promoted-video-renderer,
+body.block-ads-enabled ytd-banner-promo-renderer,
+body.block-ads-enabled ytd-video-masthead-ad-v3-renderer,
+body.block-ads-enabled ytd-primetime-promo-renderer,
+body.block-ads-enabled .ytp-ad-module,
+body.block-ads-enabled .video-ads {
+    display: none !important;
+}

@@ -192,8 +192,8 @@ chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
     if (request.action === 'toggleExtension') {
         toggleExtensionCssClass(request.enabled);
     } else if (request.action === 'toggleComments') {
-        // This action is now for a premium placeholder, no functional change here
-        // toggleCommentsCssClass(request.hideComments); // No functional change
+        // Handle Hide Comments toggle
+        toggleCommentsCssClass(request.hideComments);
     } else if (request.action === 'toggleHideFeed') { // Handle toggleHideFeed action
         console.log(`[Hide Feed] Toggle Hide Feed message received - hideFeed: ${request.hideFeed}, current path: ${window.location.pathname}`);
         // Only apply hide feed if on the homepage

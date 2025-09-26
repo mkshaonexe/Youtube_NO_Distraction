@@ -7,8 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const featureBlockAds = document.getElementById('featureBlockAds');
     const status = document.getElementById('status');
 
-    // Get references to locked feature containers
-    const lockedFeatures = document.querySelectorAll('.feature-toggle.locked-feature');
+    // All features are now available to all users
 
     // Load initial states
     chrome.storage.local.get(['enabled', 'hideComments', 'blockAds', 'hideFeed', 'motivationEnabled'], function(result) { // Added 'motivationEnabled'
@@ -28,10 +27,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Block Ads toggle state
         toggleAds.checked = result.blockAds === true; // Default to false
 
-        // Comments and Ads toggles are disabled in HTML, no need to load state or add listeners here for functionality
-        // We might want to visually set their initial state based on storage here if they weren't disabled, but they are.
-        // toggleComments.checked = result.hideComments === true; // For display only if not disabled
-        // toggleAds.checked = result.blockAds === true; // For display only if not disabled
+        // Comments and Ads toggles are now enabled for all users
     });
 
     // Handle extension toggle changes
@@ -101,27 +97,20 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Prevent enabling Block Ads; show premium notice on click anywhere in the row
-    // In-popup premium notice (no browser alert)
-    const premiumNotice = document.getElementById('premiumNotice');
-    const dismissPremiumNotice = document.getElementById('dismissPremiumNotice');
-    const showPremiumNotice = () => { premiumNotice.style.display = 'flex'; };
-    const hidePremiumNotice = () => { premiumNotice.style.display = 'none'; };
-    featureBlockAds.addEventListener('click', showPremiumNotice);
-    toggleAds.addEventListener('click', (e) => { e.preventDefault(); showPremiumNotice(); });
-    if (dismissPremiumNotice) {
-        dismissPremiumNotice.addEventListener('click', hidePremiumNotice);
-    }
-
-    // Handle clicks on locked features
-    lockedFeatures.forEach(feature => {
-        feature.addEventListener('click', function(event) {
-            // Prevent the default action (like potentially trying to toggle a visually active slider)
-            event.preventDefault();
-            // Display the premium message
-            alert('This feature is available only for premium users.');
+    // Handle Block Ads toggle changes
+    toggleAds.addEventListener('change', function() {
+        const blockAds = toggleAds.checked;
+        chrome.storage.local.set({ blockAds: blockAds }, function() {
+            // Notify content script
+            chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+                if (tabs && tabs[0]) {
+                    chrome.tabs.sendMessage(tabs[0].id, { action: 'toggleAds', blockAds: blockAds });
+                }
+            });
         });
     });
+
+    // All features are now available to all users - no locked features
 
 
     function updateStatus(enabled) {

@@ -70,26 +70,6 @@
         input:checked + .slider:before {
             transform: translateX(16px); /* Adjust translation */
         }
-        .locked-feature label {
-            color: #888; /* Dimmer label color */
-            font-style: italic;
-        }
-         .locked-feature .slider {
-            cursor: not-allowed;
-            background-color: #e0e0e0; /* Lighter grey for disabled */
-        }
-        .locked-feature input:checked + .slider {
-             background-color: #e0e0e0; /* Keep grey even if checked */
-        }
-         .locked-feature input:checked + .slider:before {
-             background-color: #ccc; /* Dimmer circle for disabled checked */
-         }
-         .premium-label {
-            font-size: 0.8em;
-            margin-left: 10px;
-            color: #f00; /* Red for premium */
-            font-weight: bold;
-         }
         .status {
             margin-top: 20px; /* More space above status */
             text-align: center;
@@ -133,31 +113,26 @@
         </label>
     </div>
 
-    <div class="feature-toggle locked-feature">
+    <div class="feature-toggle">
         <label for="toggleComments">
-            Hide Comments <span class="lock-icon">🔒</span> <span class="premium-label">Premium</span>
+            Hide Comments
             <span class="switch">
-                <input type="checkbox" id="toggleComments" disabled>
+                <input type="checkbox" id="toggleComments">
                 <span class="slider"></span>
             </span>
         </label>
     </div>
 
-    <div class="feature-toggle locked-feature" id="featureBlockAds">
+    <div class="feature-toggle" id="featureBlockAds">
         <label for="toggleAds">
-            Block Ads <span class="lock-icon">🔒</span> <span class="premium-label">Premium</span>
+            Block Ads
             <span class="switch">
-                <input type="checkbox" id="toggleAds" disabled>
+                <input type="checkbox" id="toggleAds">
                 <span class="slider"></span>
             </span>
         </label>
     </div>
 
-    <div id="premiumNotice" class="premium-notice" style="display:none;">
-        <div class="premium-notice-title">Premium feature</div>
-        <div class="premium-notice-text">This feature is available only for premium users.</div>
-        <button id="dismissPremiumNotice" class="btn">OK</button>
-    </div>
 
     <div class="feature-toggle">
         <label for="toggleMotivation">

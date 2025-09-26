@@ -1,23 +1,5 @@
-/* Hide shorts section */
-ytd-rich-section-renderer,
-ytd-reel-shelf-renderer {
-    display: none !important;
-}
-
-/* Hide shorts in search results */
-ytd-video-renderer[is-shorts] {
-    display: none !important;
-}
-
-/* Hide recommendations sidebar */
-ytd-watch-next-secondary-results-renderer {
-    display: none !important;
-}
-
-/* Hide shorts button in navigation */
-ytd-mini-guide-entry-renderer[aria-label*="Shorts"] {
-    display: none !important;
-}
+/* Global rules removed - these should only apply when extension is enabled */
+/* All hiding rules are now moved to the .no-shorts-no-reels-enabled section below */
 
 /* Styles active when .no-shorts-no-reels-enabled class is on body/html */
 body.no-shorts-no-reels-enabled ytd-rich-section-renderer, /* Hide Shorts shelf on homepage */
@@ -25,7 +7,9 @@ body.no-shorts-no-reels-enabled ytd-reel-shelf-renderer, /* Hide Shorts shelf (a
 body.no-shorts-no-reels-enabled ytd-video-renderer[is-shorts], /* Hide individual Shorts in feeds/search */
 body.no-shorts-no-reels-enabled ytd-grid-video-renderer[is-shorts], /* Hide individual Shorts in grid views */
 body.no-shorts-no-reels-enabled ytd-thumbnail[is-shorts], /* Hide Shorts thumbnails */
-body.no-shorts-no-reels-enabled a[href*="/shorts/"] /* Hide links to Shorts */
+body.no-shorts-no-reels-enabled a[href*="/shorts/"], /* Hide links to Shorts */
+body.no-shorts-no-reels-enabled ytd-watch-next-secondary-results-renderer, /* Hide recommendations sidebar */
+body.no-shorts-no-reels-enabled ytd-mini-guide-entry-renderer[aria-label*="Shorts"] /* Hide shorts button in navigation */
 {
     display: none !important;
 }
@@ -45,7 +29,6 @@ body.no-shorts-no-reels-enabled ytd-item-section-renderer:has(ytd-reel-shelf-ren
 /* Hide known recommendation sections and sidebars */
 /* Avoid hiding whole item sections; target only specific shelf components */
 body.no-shorts-no-reels-enabled #related, /* Hide "Up Next" and related videos sidebar */
-body.no-shorts-no-reels-enabled ytd-watch-next-secondary-results-renderer, /* Hide recommendations on watch page */
 body.no-shorts-no-reels-enabled ytd-feed-filter-chip-bar-renderer, /* Hide the filter chips like "All", "Recents", etc. (Optional, but helps clean up) */
 body.no-shorts-no-reels-enabled ytd-compact-video-renderer, /* Hide compact recommendations in sidebars */
 body.no-shorts-no-reels-enabled ytd-guide-entry-renderer[line-icon="shorts"] /* Hide Shorts link in sidebar */

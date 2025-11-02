@@ -1,0 +1,57 @@
+🎯 **Single Purpose: Eliminate distractions on YouTube to enable focused, intentional content consumption.**
+
+**What This Extension Does:**
+
+This extension has ONE clear purpose: to remove all distractions from YouTube so you can focus on the content you actually want to watch. Instead of getting lost in Shorts, recommendations, comments, and ads, you can maintain control and watch with intention.
+
+**How It Eliminates Distractions:**
+
+To achieve its single purpose of removing distractions, this extension provides customizable controls that work together:
+
+• **Blocks YouTube Shorts** - Removes Shorts from feeds, search results, and recommendations. Automatically redirects Shorts URLs.
+
+• **Hides Recommendations** - Removes the "Up Next" sidebar and related video suggestions that lead to endless rabbit holes.
+
+• **Hides Home Feed** - Removes the homepage feed to force intentional navigation instead of mindless browsing.
+
+• **Hides Comments** - Removes comment sections to eliminate distracting discussions and maintain focus on video content.
+
+• **Blocks Ads** - Removes display ads, promoted content, and banners for uninterrupted viewing.
+
+• **Motivation Mode (Beta)** - Replaces the homepage with inspirational quotes when you need extra focus encouragement.
+
+**Why Install This Extension?**
+
+If you want to use YouTube for focused learning, studying, or watching specific content without getting distracted by Shorts, recommendations, comments, and ads, this extension achieves that single goal.
+
+**Perfect For:**
+• Students who need to focus while researching and learning
+• Professionals watching educational or skill-building content
+• Anyone who wants to transform YouTube from a distraction platform into a focused tool
+
+**Benefits:**
+• Eliminate endless scrolling and Shorts addiction
+• Avoid recommendation rabbit holes
+• Remove distracting comments and ads
+• Save time and improve digital wellness
+• Faster page loading with fewer distractions
+• Clean, distraction-free interface
+
+**How It Works:**
+
+Install the extension and toggle the distraction-removal features you want in the popup menu. All settings are saved automatically and work across all YouTube pages.
+
+**Privacy & Security:**
+
+• No data collection or tracking
+• All settings stored locally on your device
+• No external requests or analytics
+• Minimal permissions - only what's needed for distraction removal
+• Open source and transparent
+
+**Install today and eliminate distractions from your YouTube experience.**
+
+---
+
+**Developer:** MK Shaon | Open Source | Privacy-First | Free Forever
+

@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "No distraction youtube",
   "version": "2.6",
-  "description": "youtube No short, no distraction no ads",
+  "description": "youtube No short, no distraction",
   "permissions": [
     "storage",
     "activeTab",

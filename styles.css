@@ -52,6 +52,12 @@ body.hide-feed-enabled #primary #contents {
     display: none !important;
 }
 
+/* Pre-hide the feed immediately on page load, then allow JS to control it */
+html.preload-feed-hidden #primary #contents {
+    display: none !important;
+    visibility: hidden !important;
+}
+
 /* Styles active when .motivation-mode-enabled class is on body/html */
 body.motivation-mode-enabled {
     background-color: #000 !important;
@@ -97,19 +103,5 @@ body.hide-comments-enabled ytd-comments-header-renderer,
 body.hide-comments-enabled #comments-inner,
 body.hide-comments-enabled ytd-comment-thread-renderer,
 body.hide-comments-enabled ytd-comments-section-renderer {
-    display: none !important;
-}
-
-/* Styles active when .block-ads-enabled class is on body/html - Block ads */
-body.block-ads-enabled ytd-display-ad-renderer,
-body.block-ads-enabled ytd-promoted-sparkles-web-renderer,
-body.block-ads-enabled ytd-ad-slot-renderer,
-body.block-ads-enabled .ytd-display-ad-renderer,
-body.block-ads-enabled .ytd-promoted-video-renderer,
-body.block-ads-enabled ytd-banner-promo-renderer,
-body.block-ads-enabled ytd-video-masthead-ad-v3-renderer,
-body.block-ads-enabled ytd-primetime-promo-renderer,
-body.block-ads-enabled .ytp-ad-module,
-body.block-ads-enabled .video-ads {
     display: none !important;
 }

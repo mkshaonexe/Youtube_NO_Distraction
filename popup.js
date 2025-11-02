@@ -4,14 +4,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const toggleHideFeed = document.getElementById('toggleHideFeed'); // Get reference to the new toggle
     const toggleMotivation = document.getElementById('toggleMotivation'); // Get reference to the Motivation Mode toggle
     const toggleComments = document.getElementById('toggleComments'); // Get reference to the Hide Comments toggle
-    const toggleAds = document.getElementById('toggleAds'); // Get reference to the Block Ads toggle
-    const featureBlockAds = document.getElementById('featureBlockAds');
     const status = document.getElementById('status');
 
     // All features are now available to all users
 
     // Load initial states
-    chrome.storage.local.get(['enabled', 'hideComments', 'blockAds', 'hideFeed', 'motivationEnabled', 'hideShorts'], function(result) { // Added 'hideShorts'
+    chrome.storage.local.get(['enabled', 'hideComments', 'hideFeed', 'motivationEnabled', 'hideShorts'], function(result) { // Added 'hideShorts'
         // Extension toggle state
         toggleExtension.checked = result.enabled !== false; // Default to true
         updateStatus(toggleExtension.checked);
@@ -27,11 +25,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Hide Comments toggle state
         toggleComments.checked = result.hideComments === true; // Default to false
-
-        // Block Ads toggle state
-        toggleAds.checked = result.blockAds === true; // Default to false
-
-        // Comments and Ads toggles are now enabled for all users
     });
 
     // Handle extension toggle changes
@@ -109,19 +102,6 @@ document.addEventListener('DOMContentLoaded', function() {
             chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
                 if (tabs && tabs[0]) {
                     chrome.tabs.sendMessage(tabs[0].id, { action: 'toggleComments', hideComments: hideComments });
-                }
-            });
-        });
-    });
-
-    // Handle Block Ads toggle changes
-    toggleAds.addEventListener('change', function() {
-        const blockAds = toggleAds.checked;
-        chrome.storage.local.set({ blockAds: blockAds }, function() {
-            // Notify content script
-            chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-                if (tabs && tabs[0]) {
-                    chrome.tabs.sendMessage(tabs[0].id, { action: 'toggleAds', blockAds: blockAds });
                 }
             });
         });

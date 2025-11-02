@@ -60,15 +60,6 @@ function toggleMotivationCssClass(motivationEnabled) {
     }
 }
 
-// Function to apply/remove CSS class on the body for blocking ads
-function toggleBlockAdsCssClass(blockAds) {
-    console.log(`[Block Ads] Toggling block ads: ${blockAds}`);
-    if (blockAds) {
-        document.body.classList.add('block-ads-enabled');
-    } else {
-        document.body.classList.remove('block-ads-enabled');
-    }
-}
 
 // Function to display a motivational quote
 function displayMotivationQuote() {
@@ -149,6 +140,11 @@ function removeMotivationQuote() {
     }
 }
 
+// Hide feed immediately on homepage to prevent flash (CSS will handle it until JS loads)
+if (window.location.pathname === '/') {
+    document.documentElement.classList.add('preload-feed-hidden');
+}
+
 // Fallback redirect for shorts URLs if background script didn't catch it
 async function fallbackShortsRedirect() {
     const result = await chrome.storage.local.get('hideShorts');
@@ -164,29 +160,30 @@ fallbackShortsRedirect();
 // Initial run on page load (for applying CSS classes based on stored state)
 async function initializeExtension() {
     console.log('[Hide Feed] Initializing extension.');
-    const result = await chrome.storage.local.get(['enabled', 'hideComments', 'hideFeed', 'motivationEnabled', 'blockAds', 'hideShorts']); // Added 'hideShorts'
+    const result = await chrome.storage.local.get(['enabled', 'hideComments', 'hideFeed', 'motivationEnabled', 'hideShorts']); // Added 'hideShorts'
     const enabled = result.enabled !== false; // Default to true
     const hideComments = result.hideComments === true; // Default to false
     const hideFeed = result.hideFeed === true; // Default to false
     const motivationEnabled = result.motivationEnabled === true; // Default to false
-    const blockAds = result.blockAds === true; // Default to false
     const hideShorts = result.hideShorts !== false; // Default to true (hide shorts by default)
 
     toggleExtensionCssClass(enabled);
     toggleCommentsCssClass(hideComments);
     toggleShortsCssClass(hideShorts); // Apply shorts hiding class
-    // toggleHideFeedCssClass(hideFeed); // Don't apply here, apply conditionally below
-    toggleBlockAdsCssClass(blockAds); // Apply block ads class
-
+    
+     // Clear preload hiding class and apply proper hiding if needed
+     document.documentElement.classList.remove('preload-feed-hidden');
+    
      // If hide feed is initially enabled AND we are on the homepage, apply the class
      console.log(`[Hide Feed] Initial check - hideFeed: ${hideFeed}, current path: ${window.location.pathname}`);
-     if (hideFeed && window.location.pathname === '/') {
-        console.log('[Hide Feed] Applying hide-feed-enabled class on initialization (homepage and enabled).');
-        // Add a slight delay before applying the class
-        setTimeout(() => {
+     if (window.location.pathname === '/') {
+        if (hideFeed) {
+            console.log('[Hide Feed] Applying hide-feed-enabled class on initialization (homepage and enabled).');
             toggleHideFeedCssClass(true);
-        }, 500); // 500ms delay - adjust if needed
+        }
+        // If hideFeed is disabled, we just removed preload-feed-hidden, so feed will show naturally
      }
+     // If not on homepage, we just removed preload-feed-hidden, so feed will show naturally
 
      // If motivation mode is initially enabled on page load, display the quote
      if (motivationEnabled) {
@@ -194,9 +191,8 @@ async function initializeExtension() {
      }
 }
 
-// We delay the rest of the initialization slightly to give the fallback redirect a chance
-// This might not be strictly necessary but adds a layer of safety.
-setTimeout(initializeExtension, 100); // Adjust delay as needed
+// Initialize immediately - CSS pre-hides the feed so no flash will occur
+initializeExtension();
 
 // Listen for messages from the popup to toggle extension state and features
 chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
@@ -212,15 +208,14 @@ chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
     } else if (request.action === 'toggleHideFeed') { // Handle toggleHideFeed action
         console.log(`[Hide Feed] Toggle Hide Feed message received - hideFeed: ${request.hideFeed}, current path: ${window.location.pathname}`);
         // Only apply hide feed if on the homepage
-        if (request.hideFeed && window.location.pathname === '/') {
-            console.log('[Hide Feed] Applying hide-feed-enabled class from message (homepage and enabled).');
-            // Keep the slight delay for applying the class from message as well
-            setTimeout(() => {
-                 toggleHideFeedCssClass(true);
-            }, 100); // Added a small delay here too
-        } else {
-            console.log('[Hide Feed] Removing hide-feed-enabled class from message.');
-            toggleHideFeedCssClass(false); // Ensure it's off if not on homepage or toggle is off
+        if (window.location.pathname === '/') {
+            if (request.hideFeed) {
+                console.log('[Hide Feed] Applying hide-feed-enabled class from message (homepage and enabled).');
+                toggleHideFeedCssClass(true);
+            } else {
+                console.log('[Hide Feed] Removing hide-feed-enabled class from message.');
+                toggleHideFeedCssClass(false);
+            }
         }
     } else if (request.action === 'toggleMotivation') { // Handle new toggleMotivation action
         console.log(`[Motivation Mode] Toggle Motivation Mode message received - motivationEnabled: ${request.motivationEnabled}, current path: ${window.location.pathname}`);
@@ -232,8 +227,6 @@ chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
              console.log('[Motivation Mode] Removing motivation mode from message.');
              toggleMotivationCssClass(false); // Ensure it's off if not on homepage or toggle is off
         }
-    } else if (request.action === 'toggleAds') { // Handle toggleAds action
-        toggleBlockAdsCssClass(request.blockAds);
     }
 });
 
@@ -294,19 +287,27 @@ const observer = new MutationObserver(async (mutations) => {
         console.log(`[MutationObserver] URL changed to: ${location.href}`);
 
         // Re-apply all initial settings on URL change
-        const result = await chrome.storage.local.get(['enabled', 'hideComments', 'hideFeed', 'motivationEnabled', 'blockAds', 'hideShorts']); // Added 'hideShorts'
+        const result = await chrome.storage.local.get(['enabled', 'hideComments', 'hideFeed', 'motivationEnabled', 'hideShorts']); // Added 'hideShorts'
         toggleExtensionCssClass(result.enabled !== false);
         toggleCommentsCssClass(result.hideComments === true);
         toggleShortsCssClass(result.hideShorts !== false); // Re-apply shorts hiding class
         // toggleHideFeedCssClass(result.hideFeed === true); // Don't apply here, apply conditionally below
-        toggleBlockAdsCssClass(result.blockAds === true); // Re-apply block ads class
 
-        // Always remove the hide feed class on URL change, then re-apply if on homepage and enabled
+        // Handle feed visibility on URL change
         console.log(`[Hide Feed] MutationObserver - hideFeed state: ${result.hideFeed}, new path: ${window.location.pathname}`);
         toggleHideFeedCssClass(false); // Remove class on any URL change initially
-        if (result.hideFeed === true && window.location.pathname === '/') {
-            console.log('[Hide Feed] MutationObserver - Applying hide-feed-enabled class (homepage and enabled).');
-            toggleHideFeedCssClass(true);
+        
+        // Add preload hiding on homepage navigation
+        if (window.location.pathname === '/') {
+            document.documentElement.classList.add('preload-feed-hidden');
+            if (result.hideFeed === true) {
+                console.log('[Hide Feed] MutationObserver - Applying hide-feed-enabled class (homepage and enabled).');
+                toggleHideFeedCssClass(true);
+            }
+            // Remove preload after a short delay to allow smooth transition
+            setTimeout(() => {
+                document.documentElement.classList.remove('preload-feed-hidden');
+            }, 50);
         }
 
         // If motivation mode is enabled on URL change, re-display the quote

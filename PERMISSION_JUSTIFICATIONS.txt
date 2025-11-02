@@ -1,0 +1,71 @@
+PERMISSION JUSTIFICATIONS
+==========================
+
+1. STORAGE PERMISSION
+---------------------
+
+**Permission:** storage
+
+**Justification:**
+
+The storage permission is essential for this extension's single purpose of eliminating distractions on YouTube. The extension needs to remember user preferences for which distraction-removal features are enabled or disabled (such as hiding Shorts, recommendations, comments, ads, and feed). Without persistent storage, users would need to reconfigure their settings every time they open YouTube or restart their browser, which would prevent the extension from effectively fulfilling its purpose. 
+
+The extension stores only local settings on the user's device - it does not transmit any data externally. This local storage ensures that the distraction-removal preferences persist across browser sessions, allowing users to maintain their focused YouTube experience consistently. Without this permission, the extension cannot remember user choices and would fail to maintain the distraction-free environment it is designed to provide.
+
+---
+
+2. ACTIVE TAB PERMISSION
+------------------------
+
+**Permission:** activeTab
+
+**Justification:**
+
+The activeTab permission is required to apply distraction-removal features to the currently active YouTube tab when users toggle settings in the extension popup. When a user enables or disables features like hiding Shorts, recommendations, comments, or ads through the popup interface, the extension needs to communicate with the active YouTube tab to apply these changes immediately.
+
+This permission allows the extension to:
+- Send messages to the active YouTube tab to toggle CSS classes that hide distracting elements
+- Receive confirmation that changes have been applied
+- Ensure that user preference changes take effect in real-time without requiring a page refresh
+
+The activeTab permission ensures that the extension can modify only the currently active tab the user is viewing, maintaining security while enabling the core functionality needed to eliminate distractions on YouTube.
+
+---
+
+3. WEB NAVIGATION PERMISSION
+-----------------------------
+
+**Permission:** webNavigation
+
+**Justification:**
+
+The webNavigation permission is necessary to intercept and redirect YouTube Shorts URLs automatically. When a user clicks on or navigates to a YouTube Shorts URL (e.g., youtube.com/shorts/...), this permission allows the background service worker to detect the navigation attempt and redirect it to the main YouTube homepage before the Shorts page loads.
+
+This is a critical component of the extension's single purpose because:
+- It prevents users from accidentally accessing Shorts content even when clicking on Shorts links from external sources
+- It provides a seamless redirection that maintains the distraction-free experience
+- It works in the background without requiring content script intervention
+
+Without webNavigation, the extension could only hide Shorts that are already loaded on a page, but could not prevent navigation to Shorts URLs entirely. This permission is directly required to fulfill the extension's core function of eliminating YouTube Shorts distractions.
+
+---
+
+4. HOST PERMISSION (YouTube)
+-----------------------------
+
+**Permission:** https://*.youtube.com/*
+
+**Justification:**
+
+The host permission for https://*.youtube.com/* is absolutely essential because this extension's single purpose is to eliminate distractions specifically on YouTube. The extension needs access to YouTube pages to:
+
+- Inject content scripts that hide distracting elements (Shorts, recommendations, comments, ads, feed)
+- Apply CSS styles to remove these elements from YouTube's interface
+- Monitor URL changes and page navigation within YouTube
+- Communicate with YouTube pages to apply user preference changes
+- Detect and redirect Shorts URLs to maintain the distraction-free experience
+
+This permission is narrowly scoped to only YouTube domains (*.youtube.com), ensuring the extension operates exclusively on YouTube where its purpose is fulfilled. Without this host permission, the extension cannot access YouTube pages to modify their content and would be unable to eliminate any distractions, rendering it non-functional for its intended single purpose.
+
+The extension does not access any other websites or domains - it operates exclusively on YouTube to fulfill its distraction-elimination purpose.
+

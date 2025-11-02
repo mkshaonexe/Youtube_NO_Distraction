@@ -1,15 +1,15 @@
-# 🎯 YouTube No Distraction - Focus & Productivity Chrome Extension
+# 🎯 No Shorts No Distraction YT - Focus & Productivity Chrome Extension
 
 [![Chrome Extension](https://img.shields.io/badge/Chrome-Extension-4285F4?style=for-the-badge&logo=googlechrome&logoColor=white)](https://github.com/mkshaonexe/youtube-no-distraction)
-[![Version](https://img.shields.io/badge/Version-2.7-success?style=for-the-badge)](https://github.com/mkshaonexe/youtube-no-distraction)
+[![Version](https://img.shields.io/badge/Version-0.0.9-success?style=for-the-badge)](https://github.com/mkshaonexe/youtube-no-distraction)
 [![License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)](LICENSE)
 [![Stars](https://img.shields.io/github/stars/mkshaonexe/youtube-no-distraction?style=for-the-badge)](https://github.com/mkshaonexe/youtube-no-distraction/stargazers)
 
 > **Transform your YouTube experience into a focused, distraction-free environment for enhanced productivity and mindful content consumption.**
 
-## 🌟 Why YouTube No Distraction?
+## 🌟 Why No Shorts No Distraction YT?
 
-In today's digital age, YouTube can be both a valuable learning resource and a major source of distraction. **YouTube No Distraction** is designed to help students, professionals, and anyone seeking to maintain focus while browsing YouTube by eliminating time-wasting elements and promoting intentional viewing.
+In today's digital age, YouTube can be both a valuable learning resource and a major source of distraction. **No Shorts No Distraction YT** is designed to help students, professionals, and anyone seeking to maintain focus while browsing YouTube by eliminating time-wasting elements and promoting intentional viewing.
 
 ### 🎯 **Core Problems We Solve:**
 - ❌ **YouTube Shorts addiction** - Endless scrolling through short-form content
@@ -295,8 +295,15 @@ chrome.storage.local.get(['enabled', 'hideFeed', 'motivationEnabled'],
 
 ## 📊 Version History & Changelog
 
-### **🆕 Version 2.7 (Current)**
-**Release Date**: Latest
+### **🆕 Version 0.0.9 (Current)**
+**Release Date**: 03 Nov, 01:32 AM
+**Major Updates**:
+- 🏷️ **Changed**: Extension name updated to "No Shorts No Distraction YT"
+- 📦 **Version**: Reset to 0.0.9 for fresh start
+- 🎯 **Improved**: Better branding and clarity
+
+### **Version 2.7**
+**Release Date**: Previous
 **Major Bug Fixes**:
 - 🐛 **Fixed**: Critical bug where recommendations appeared when toggling shorts even when recommendations were disabled
 - 🔧 **Improved**: CSS rule consolidation to prevent conflicts between shorts and recommendations toggles
@@ -674,4 +681,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 > **"The expert in anything was once a beginner. Focus on your growth, eliminate distractions, and let your potential shine."**
 
-**⚡ Transform your YouTube experience today with YouTube No Distraction!**
+**⚡ Transform your YouTube experience today with No Shorts No Distraction YT!**

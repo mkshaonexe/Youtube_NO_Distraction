@@ -1,5 +1,7 @@
 # No Shorts No Distraction YT
 
+![Chrome Rating](https://img.shields.io/badge/Chrome-4.7%2F5-00FF00?style=for-the-badge&logo=google-chrome&logoColor=white&labelColor=424242)
+
 A Chrome extension to eliminate distractions on YouTube and help you stay focused.
 
 ## Features

@@ -13,6 +13,14 @@ A Chrome extension to eliminate distractions on YouTube and help you stay focuse
 
 ## Installation
 
+### Chrome Web Store
+
+Get the extension directly from the Chrome Web Store:
+
+**[Install from Chrome Web Store](https://chromewebstore.google.com/detail/hnfhjipeggjbmbmflglokgeenplcbdlm?utm_source=item-share-cb)**
+
+### Manual Installation
+
 1. Clone this repository
 2. Open Chrome and navigate to `chrome://extensions/`
 3. Enable "Developer mode"
